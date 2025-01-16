@@ -5,26 +5,13 @@
             <span>Mi esposa</span>
         </div>
         <ChatMessages :messages />
-        <MessageBox />
+        <MessageBox @add-new-message="addNewMessage" />
     </div>
 </template>
 <script lang="ts" setup>
 import ChatMessages from '@/components/chat/ChatMessages.vue';
 import MessageBox from '@/components/chat/MessageBox.vue';
-import type { ChatMessage } from '@/interfaces/chat-message.interface';
-import { ref } from 'vue';
+import { useChat } from '@/composables/useChat';
 
-const messages = ref<ChatMessage[]>([
-    {
-        id: new Date().getTime(),
-        message: 'shi',
-        itsMine: true,
-    },
-    {
-        id: new Date().getTime(),
-        message: 'no',
-        itsMine: false,
-        image: 'https://yesno.wtf/assets/no/27-8befe9bcaeb66f865dd3ecdcf8821f51.gif',
-    },
-]);
+const { messages, addNewMessage } = useChat();
 </script>

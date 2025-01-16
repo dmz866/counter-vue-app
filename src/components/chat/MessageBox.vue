@@ -1,10 +1,13 @@
 <template>
     <div class="bg-white p-4 flex items-center">
         <input
+            @keypress.enter="onSendMessage"
+            v-model="message"
             type="text"
             placeholder="Type your message..."
             class="flex-1 border rounded-full px-4 py-2 focus:outline-none" />
         <button
+            @click="onSendMessage"
             class="bg-blue-500 text-white rounded-full p-2 ml-2 hover:bg-blue-600 focus:outline-none">
             <svg
                 width="20px"
@@ -27,3 +30,16 @@
         </button>
     </div>
 </template>
+<script lang="ts" setup>
+import { ref } from 'vue';
+
+const emits = defineEmits<{ addNewMessage: [message: string] }>();
+
+const message = ref<string>('');
+const onSendMessage = () => {
+    if (!message.value) return;
+
+    emits('addNewMessage', message.value);
+    message.value = '';
+};
+</script>
